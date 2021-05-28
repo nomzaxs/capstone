@@ -107,11 +107,11 @@ public class MainActivity extends AppCompatActivity {
         if (!accessibilityPermission(getApplicationContext(), DotService.class)) {
             mBinding.mainSwitch.setChecked(false);
             new MaterialAlertDialogBuilder(this)
-                    .setTitle("Requires Accessibility Permission")
-                    .setMessage("You're required to enable accessibility permission to Safe Dot Pro to enable the safe dots")
+                    .setTitle("접근성 권한이 필요합니다.")
+                    .setMessage("활성화를 위해 접근성 권한을 활성화해야합니다.")
                     .setIcon(R.drawable.ic_baseline_accessibility_24)
-                    .setPositiveButton("Open Accessibility", (dialog, which) -> startActivity(new Intent("android.settings.ACCESSIBILITY_SETTINGS")))
-                    .setNegativeButton("Cancel", null)
+                    .setPositiveButton("접근성 열기", (dialog, which) -> startActivity(new Intent("android.settings.ACCESSIBILITY_SETTINGS")))
+                    .setNegativeButton("취소", null)
                     .setCancelable(true)
                     .show();
         } else {
@@ -168,15 +168,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
-//    private void sendFeedbackEmail() {
-//        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", getString(R.string.feedback_email_address), null));
-//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.feedback_subject));
-//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Device Information : \n----- Don't clear these ----\n " + Build.DEVICE + " ,\n " + Build.BOARD + " ,\n " + Build.BRAND + " , " + Build.MANUFACTURER + " ,\n " + Build.MODEL + "\n ------ ");
-//        startActivity(Intent.createChooser(emailIntent, "Send feedback..."));
-//    }
-
 
     /**
      * @return

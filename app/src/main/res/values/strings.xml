@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Alert+Log</string>
+    <string name="app_name">capstone</string>
 
     <string name="service_description">When this service is enabled it lets Dot safe app to display notifications and indicators every time a third-party app or a service uses camera or microphone on any screen.</string>
     <string name="service_summary">Turn this on to enable safe-dots</string>
@@ -17,8 +17,8 @@
     <string name="clear_dialog_yes">Yes, Clear it</string>
     <string name="clear_dialog_no">No, Not now</string>
 
-    <string name="creator_attribution">Made for you by Aravind Chowdary</string>
-
+    <string name="creator_attribution">2021 조선대 캡스톤</string>
+조
     <string name="access_logs_title">Access Logs</string>
     <string name="access_log_description">Timeline of app usage logs. You can find which app used your camera and mic at what intervals.</string>
 

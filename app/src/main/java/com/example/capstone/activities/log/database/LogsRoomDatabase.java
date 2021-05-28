@@ -1,6 +1,5 @@
 package com.example.capstone.activities.log.database;
 
-
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -23,10 +22,6 @@ public abstract class LogsRoomDatabase extends RoomDatabase {
     private static volatile LogsRoomDatabase INSTANCE;
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    /**
-     * @param context
-     * @return
-     */
     static LogsRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (LogsRoomDatabase.class) {
