@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         loadFromPrefs();
         init();
         loadAd();
-        checkAutoStartRequirement();
     }
 
     private void loadAd() {
@@ -66,16 +65,17 @@ public class MainActivity extends AppCompatActivity {
         mBinding.mainSwitch.setChecked(sharedPreferenceManager.isServiceEnabled());
     }
 
+    //위치 권한 할당
     private void init() {
         mBinding.locationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     new MaterialAlertDialogBuilder(MainActivity.this)
                             .setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_round_location))
-                            .setTitle("Requires Location Permission")
-                            .setMessage("This features requires LOCATION PERMISSION to work as expected\n\nNOTE: This app doesn't have permission to connect to internet so your data is safe on your device.")
-                            .setNeutralButton("Later", (dialog, which) -> mBinding.locationSwitch.setChecked(false))
-                            .setPositiveButton("Continue", (dialog, which) -> {
+                            .setTitle("위치 권한이 필요합니다.")
+                            .setMessage("이 기능을 사용하기 위해 위치 귄한이 필요합니다.\n\n참고: 이 앱은 인터넷 연결이 없어 데이터가 안전하게 보호됩니다.")
+                            .setNeutralButton("취소", (dialog, which) -> mBinding.locationSwitch.setChecked(false))
+                            .setPositiveButton("계속", (dialog, which) -> {
                                 askPermission(Manifest.permission.ACCESS_FINE_LOCATION);
                             })
                             .show();
@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // 활성화 버튼 클릭
     private void checkForAccessibilityAndStart() {
 
         if (!accessibilityPermission(getApplicationContext(), DotService.class)) {
@@ -147,11 +148,6 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    /**
-     * @param context
-     * @param cls
-     * @return
-     */
     public static boolean accessibilityPermission(Context context, Class<?> cls) {
         ComponentName componentName = new ComponentName(context, cls);
         String string = Settings.Secure.getString(context.getContentResolver(), "enabled_accessibility_services");
@@ -185,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
         return prefString != null && prefString.contains(this.getPackageName() + "/" + DotService.class.getName());
     }
 
-
     /**
      * @param message
      */
@@ -202,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-
     /**
      * Asks permission runtime
      *
@@ -214,23 +208,6 @@ public class MainActivity extends AppCompatActivity {
             sharedPreferenceManager.setLocationEnabled(true);
         }
     }
-
-    /**
-     * Chinese ROM's kill the app services frequently so AutoStart Permission is required
-     */
-    private void checkAutoStartRequirement() {
-        String manufacturer = Build.MANUFACTURER;
-        if (sharedPreferenceManager.isFirstLaunch()) {
-            if ("xiaomi".equalsIgnoreCase(manufacturer)
-                    || ("oppo".equalsIgnoreCase(manufacturer))
-                    || ("vivo".equalsIgnoreCase(manufacturer))
-                    || ("Honor".equalsIgnoreCase(manufacturer))) {
-                Utils.showAutoStartDialog(MainActivity.this, manufacturer);
-                sharedPreferenceManager.setFirstLaunch();
-            }
-        }
-    }
-
 
     @Override
     protected void onPostResume() {
