@@ -33,7 +33,6 @@ public class LogAdapter extends RecyclerView.Adapter<LogHolder> {
         return new LogHolder(inflatedView);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull final LogHolder holder, int position) {
         final Logs item = logsList.get(position);
@@ -83,7 +82,6 @@ public class LogAdapter extends RecyclerView.Adapter<LogHolder> {
                 break;
 
         }
-
 
         switch (item.getLoc_state()) {
             case 0:
