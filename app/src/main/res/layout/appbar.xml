@@ -27,7 +27,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/transparent" />
+                android:src="@drawable/chosun_logo" />
         </com.google.android.material.appbar.MaterialToolbar>
 
         <LinearLayout
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/product_sans_regular"
-                android:text="Protects your Privacy"
+                android:text="2021 조선대학교 컴퓨터공학과 캡스톤디자인"
                 android:textSize="@dimen/sub_head_size"
                 android:textStyle="bold" />
 
