@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -23,9 +22,7 @@ import com.example.capstone.databinding.ActivityMainBinding;
 import com.example.capstone.manager.PreferenceManager;
 import com.example.capstone.service.DotService;
 import com.example.capstone.util.Utils;
-import com.facebook.ads.InterstitialAd;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private PreferenceManager sharedPreferenceManager;
     private Intent serviceIntent;
     private ActivityMainBinding mBinding;
-    private InterstitialAd interstitialAd;
 
     @Override
     protected void onStart() {
@@ -52,12 +48,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferenceManager = PreferenceManager.getInstance(getApplication());
         loadFromPrefs();
         init();
-        loadAd();
-    }
-
-    private void loadAd() {
-        interstitialAd = new InterstitialAd(this, "-----");
-        interstitialAd.loadAd();
+        checkAutoStartRequirement();
     }
 
     private void loadFromPrefs() {
@@ -182,22 +173,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * @param message
-     */
-    private void showSnack(String message) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
-    }
-
-    /**
-     * @param url
-     */
-    private void openWeb(String url) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
-    }
-
-    /**
      * Asks permission runtime
      *
      * @param permission
@@ -209,13 +184,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onPostResume() {
-        assert interstitialAd != null;
-        if (interstitialAd.isAdLoaded()) {
-            interstitialAd.show();
+    private void checkAutoStartRequirement() {
+        String manufacturer = Build.MANUFACTURER;
+        if (sharedPreferenceManager.isFirstLaunch()) {
+            if ("xiaomi".equalsIgnoreCase(manufacturer)
+                    || ("oppo".equalsIgnoreCase(manufacturer))
+                    || ("vivo".equalsIgnoreCase(manufacturer))
+                    || ("Honor".equalsIgnoreCase(manufacturer))) {
+                Utils.showAutoStartDialog(MainActivity.this, manufacturer);
+                sharedPreferenceManager.setFirstLaunch();
+            }
         }
-        super.onPostResume();
     }
 
     @Override

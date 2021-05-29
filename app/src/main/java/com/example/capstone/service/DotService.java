@@ -366,15 +366,6 @@ public class DotService extends AccessibilityService {
         }
     }
 
-
-    // CUSTOMISATION SETTINGS
-
-    private void setDotCustomColors() {
-        setViewTint(dotCamera, sharedPreferenceManager.getCameraDotColor());
-        setViewTint(dotMic, sharedPreferenceManager.getMicDotColor());
-        setViewTint(dotLoc, sharedPreferenceManager.getLocationDotColor());
-    }
-
     private void setViewTint(ImageView imageView, int color) {
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_dot);
         drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
@@ -424,7 +415,6 @@ public class DotService extends AccessibilityService {
     private void showCamDot() {
         if (sharedPreferenceManager.isCameraEnabled()) {
             updateLayoutGravity();
-            setDotCustomColors();
             getIconsEnabled();
             upScaleView(dotCamera);
             dotCamera.setVisibility(View.VISIBLE);
@@ -434,7 +424,6 @@ public class DotService extends AccessibilityService {
     private void showMicDot() {
         if (sharedPreferenceManager.isMicEnabled()) {
             updateLayoutGravity();
-            setDotCustomColors();
             getIconsEnabled();
             upScaleView(dotMic);
             dotMic.setVisibility(View.VISIBLE);
@@ -445,7 +434,6 @@ public class DotService extends AccessibilityService {
     private void showLocDot() {
         if (sharedPreferenceManager.isLocationEnabled()) {
             updateLayoutGravity();
-            setDotCustomColors();
             getIconsEnabled();
             upScaleView(dotLoc);
             dotLoc.setVisibility(View.VISIBLE);
@@ -487,7 +475,6 @@ public class DotService extends AccessibilityService {
         dotCamera = hoverLayout.findViewById(R.id.dot_camera);
         dotMic = hoverLayout.findViewById(R.id.dot_mic);
         dotLoc = hoverLayout.findViewById(R.id.dot_location);
-        setDotCustomColors();
 
         dotCamera.postDelayed(() -> {
             dotCamera.setVisibility(View.GONE);
@@ -580,6 +567,4 @@ public class DotService extends AccessibilityService {
             locationManager.unregisterGnssStatusCallback(locationCallback);
         }
     }
-
-
 }

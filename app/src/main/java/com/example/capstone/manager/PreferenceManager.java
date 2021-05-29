@@ -56,7 +56,6 @@ public class PreferenceManager {
     }
 
 
-
     // --------- Mic customisations ------------
 
     public boolean isMicEnabled() {

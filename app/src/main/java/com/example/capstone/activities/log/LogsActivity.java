@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.capstone.R;
 import com.example.capstone.activities.log.adapter.LogAdapter;
@@ -15,7 +17,9 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogsActivity extends AppCompatActivity {
+public class LogsActivity extends AppCompatActivity implements ViewModelStoreOwner {
+    private ViewModelProvider.AndroidViewModelFactory viewModelFactory;
+    private ViewModelStore viewModelStore = new ViewModelStore();
     private ActivityLogsBinding mBinding;
     private LogsViewModel mLogsViewModel;
     private List<Logs> logsList;
@@ -26,8 +30,10 @@ public class LogsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = ActivityLogsBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
-        mLogsViewModel = ViewModelProviders.of(this).get(LogsViewModel.class);
-        setSupportActionBar(mBinding.toolbar);
+        if(viewModelFactory == null){
+            viewModelFactory = ViewModelProvider.AndroidViewModelFactory.getInstance((getApplication()));
+        }
+        mLogsViewModel = new ViewModelProvider(this, viewModelFactory).get(LogsViewModel.class);        setSupportActionBar(mBinding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         init();
@@ -84,18 +90,6 @@ public class LogsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        try {
-//            Intent adIntent = new Intent().setClassName(this, "com.aravi.dot.ads.AdvertisementActivity");
-//            startActivity(adIntent);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-
-//        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.aravi.dot.ads.AdvertisementActivity");
-//        if (launchIntent != null) {
-//            startActivity(launchIntent);//null pointer check in case package name was not found
-//        }
         finish();
     }
 }
