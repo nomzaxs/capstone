@@ -21,7 +21,6 @@ import com.example.capstone.activities.log.LogsActivity;
 import com.example.capstone.databinding.ActivityMainBinding;
 import com.example.capstone.manager.PreferenceManager;
 import com.example.capstone.service.DotService;
-import com.example.capstone.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferenceManager = PreferenceManager.getInstance(getApplication());
         loadFromPrefs();
         init();
-        checkAutoStartRequirement();
     }
 
     private void loadFromPrefs() {
@@ -181,19 +179,6 @@ public class MainActivity extends AppCompatActivity {
         if (!(ContextCompat.checkSelfPermission(this, permission) == 0)) {
             requestPermissions(new String[]{permission}, 0);
             sharedPreferenceManager.setLocationEnabled(true);
-        }
-    }
-
-    private void checkAutoStartRequirement() {
-        String manufacturer = Build.MANUFACTURER;
-        if (sharedPreferenceManager.isFirstLaunch()) {
-            if ("xiaomi".equalsIgnoreCase(manufacturer)
-                    || ("oppo".equalsIgnoreCase(manufacturer))
-                    || ("vivo".equalsIgnoreCase(manufacturer))
-                    || ("Honor".equalsIgnoreCase(manufacturer))) {
-                Utils.showAutoStartDialog(MainActivity.this, manufacturer);
-                sharedPreferenceManager.setFirstLaunch();
-            }
         }
     }
 

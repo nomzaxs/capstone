@@ -10,8 +10,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
 import android.graphics.PixelFormat;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.hardware.camera2.CameraManager;
 import android.location.GnssStatus;
 import android.location.LocationListener;
@@ -96,11 +94,11 @@ public class DotService extends AccessibilityService {
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
             Notification notification = new Notification.Builder(this, Constants.SERVICE_NOTIFICATION_CHANNEL)
-                    .setContentTitle("SafeDot")
-                    .setContentText("SafeDot is protecting your privacy")
-                    .setSmallIcon(R.drawable.transparent)
+                    .setContentTitle("capstone")
+                    .setContentText("protecting your privacy")
+                    .setSmallIcon(R.drawable.icon)
                     .setContentIntent(pendingIntent)
-                    .setTicker("Safedot protection is now turned on")
+                    .setTicker("protection is now turned on")
                     .build();
 
             currentLivePackage.setValue(BuildConfig.APPLICATION_ID);
@@ -249,7 +247,7 @@ public class DotService extends AccessibilityService {
      */
     private void initOnUseNotification(String appUsingComponent) {
         notificationCompatBuilder = new NotificationCompat.Builder(getApplicationContext(), Constants.DEFAULT_NOTIFICATION_CHANNEL)
-                .setSmallIcon(R.drawable.transparent)
+                .setSmallIcon(R.drawable.icon)
                 .setContentTitle(getNotificationTitle())
                 .setContentText(getNotificationDescription(appUsingComponent))
                 .setContentIntent(getPendingIntent())
@@ -364,13 +362,6 @@ public class DotService extends AccessibilityService {
             Logs log = new Logs(System.currentTimeMillis(), currentRunningAppPackage, cameraState, micState, locState);
             mLogsRepository.insertLog(log);
         }
-    }
-
-    private void setViewTint(ImageView imageView, int color) {
-        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_dot);
-        drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-        Log.i(TAG, "setViewTint: camera color " + color);
-        imageView.setBackground(drawable);
     }
 
     private void getIconsEnabled() {

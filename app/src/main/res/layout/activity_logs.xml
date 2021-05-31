@@ -51,7 +51,7 @@
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_undraw_empty"
+        android:src="@drawable/ic_empty_box"
         android:visibility="invisible" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -71,6 +71,5 @@
         app:elevation="0dp"
         app:icon="@drawable/ic_list_ui_alt"
         app:iconTint="@android:color/white" />
-
 
 </RelativeLayout>

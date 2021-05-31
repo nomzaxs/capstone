@@ -1,9 +1,7 @@
 package com.example.capstone.activities.log.database;
 
 import android.app.Application;
-
 import androidx.lifecycle.LiveData;
-
 import com.example.capstone.model.Logs;
 
 import java.util.List;
