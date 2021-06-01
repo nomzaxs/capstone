@@ -99,7 +99,6 @@ public class LogAdapter extends RecyclerView.Adapter<LogHolder> {
                 holder.locStart.setVisibility(View.INVISIBLE);
                 holder.locStop.setVisibility(View.VISIBLE);
                 break;
-
         }
     }
 

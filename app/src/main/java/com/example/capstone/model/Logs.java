@@ -29,39 +29,19 @@ public class Logs implements Serializable {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public String getPackageName() {
         return packageName;
-    }
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
     }
 
     public int getCamera_state() {
         return camera_state;
     }
 
-    public void setCamera_state(int camera_state) {
-        this.camera_state = camera_state;
-    }
-
     public int getMic_state() {
         return mic_state;
     }
 
-    public void setMic_state(int mic_state) {
-        this.mic_state = mic_state;
-    }
-
     public int getLoc_state() {
         return loc_state;
-    }
-
-    public void setLoc_state(int loc_state) {
-        this.loc_state = loc_state;
     }
 }

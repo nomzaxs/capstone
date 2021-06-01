@@ -46,7 +46,6 @@ import java.util.List;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static com.example.capstone.constant.Constants.NOTIFICATION_ID;
 
-
 public class DotService extends AccessibilityService {
     private static final String TAG = "DotService";
 
@@ -95,10 +94,10 @@ public class DotService extends AccessibilityService {
 
             Notification notification = new Notification.Builder(this, Constants.SERVICE_NOTIFICATION_CHANNEL)
                     .setContentTitle("capstone")
-                    .setContentText("protecting your privacy")
+                    .setContentText("앱이 작동 중입니다.")
                     .setSmallIcon(R.drawable.icon)
                     .setContentIntent(pendingIntent)
-                    .setTicker("protection is now turned on")
+                    .setTicker("기능이 활성화 되었습니다.")
                     .build();
 
             currentLivePackage.setValue(BuildConfig.APPLICATION_ID);
@@ -148,7 +147,7 @@ public class DotService extends AccessibilityService {
     }
 
 
-    // Camera service callbacks
+    // 카메라 서비스 callbacks
     private CameraManager.AvailabilityCallback getCameraCallback() {
         cameraCallback = new CameraManager.AvailabilityCallback() {
             @Override
@@ -180,7 +179,7 @@ public class DotService extends AccessibilityService {
         return cameraCallback;
     }
 
-    // Audio manager callbacks
+    // 오디오 서비스 callbacks
     private AudioManager.AudioRecordingCallback getMicCallback() {
         micCallback = new AudioManager.AudioRecordingCallback() {
             @Override
@@ -205,7 +204,7 @@ public class DotService extends AccessibilityService {
     }
 
 
-    // Location service Callbacks
+    // 위치 서비스 Callbacks
     private LocationListener locationListener = location -> {
         if (Constants.isDebug()) {
             Log.i(TAG, "location: " + location.toString());
@@ -223,7 +222,6 @@ public class DotService extends AccessibilityService {
                 makeLog();
                 showOnUseNotification();
             }
-
         }
 
         @Override
@@ -236,15 +234,11 @@ public class DotService extends AccessibilityService {
                 makeLog();
                 dismissOnUseNotification();
             }
-
         }
     };
 
 
-    /*
-     * Notification alert when app is accessing your privacy sensors
-     * Takes in the variable of app in last accessibility event
-     */
+    //엑세스할 경우 알림 생성
     private void initOnUseNotification(String appUsingComponent) {
         notificationCompatBuilder = new NotificationCompat.Builder(getApplicationContext(), Constants.DEFAULT_NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.icon)
@@ -257,42 +251,37 @@ public class DotService extends AccessibilityService {
         notificationManager = NotificationManagerCompat.from(getApplicationContext());
     }
 
-    /**
-     * Generates the notification title
-     */
+    // 알림 타이틀
     private String getNotificationTitle() {
-        String title = "Your ";
+        String title = "기기 ";
         if (isCameraUnavailable) {
-            title = title + "CAMERA, ";
+            title = title + "카메라 ";
         }
         if (isMicUnavailable) {
-            title = title + "MIC, ";
+            title = title + "마이크 ";
         }
         if (isLocUnavailable) {
-            title = title + "LOCATION";
+            title = title + "위치정보 ";
         }
-        return title + " are being monitored";
+        return title + "사용 감지!";
     }
 
-    /**
-     * Generates the notification description
-     * Takes in the currently running application name from last accessibility event
-     */
+    // 알림 세부사항
     private String getNotificationDescription(String appUsingComponent) {
         if (appUsingComponent.isEmpty() || appUsingComponent.equals("(unknown)")) {
-            appUsingComponent = "some app";
+            appUsingComponent = "알 수 없는";
         }
-        String description = appUsingComponent + " is using your ";
+        String description = appUsingComponent + " 앱에서 ";
         if (isCameraUnavailable) {
-            description = description + "CAMERA, ";
+            description = description + "카메라 ";
         }
         if (isMicUnavailable) {
-            description = description + "MIC, ";
+            description = description + "마이크 ";
         }
         if (isLocUnavailable) {
-            description = description + "LOCATION";
+            description = description + "위치정보 ";
         }
-        return description;
+        return description + "사용 중입니다.";
     }
 
 
@@ -317,17 +306,13 @@ public class DotService extends AccessibilityService {
         return PendingIntent.getActivity(getApplicationContext(), 1, intent, FLAG_UPDATE_CURRENT);
     }
 
-
-    /*
-     * Method to make log to the room database
-     *
-     */
+    // Room DB에 로그 생성 방법
     private void makeLog() {
         int cameraState = 0;
         int micState = 0;
         int locState = 0;
 
-        // sets the state of camera
+        // 카메라 상태 세팅
         if (didCameraUseStart && isCameraUnavailable) {
             cameraState = 1;
         } else {
@@ -337,7 +322,7 @@ public class DotService extends AccessibilityService {
             }
         }
 
-        // sets the state of mic
+        // 마이크 상태 세팅
         if (didMicUseStart && isMicUnavailable) {
             micState = 1;
         } else {
@@ -347,7 +332,7 @@ public class DotService extends AccessibilityService {
             }
         }
 
-        // sets the state of location
+        // 위치정보 상태 세팅
         if (didLocUseStart && isLocUnavailable) {
             locState = 1;
         } else {
@@ -356,7 +341,6 @@ public class DotService extends AccessibilityService {
                 didLocUseStart = false;
             }
         }
-
 
         if (!currentRunningAppPackage.equals(BuildConfig.APPLICATION_ID)) {
             Logs log = new Logs(System.currentTimeMillis(), currentRunningAppPackage, cameraState, micState, locState);
@@ -376,33 +360,11 @@ public class DotService extends AccessibilityService {
         }
     }
 
-
-    /**
-     * get's alignment of dots
-     *
-     * @return
-     */
     private int getLayoutGravity() {
-        int position = sharedPreferenceManager.getDotPosition();
-        switch (position) {
-            case 0:
-                // left
-                return Gravity.TOP | Gravity.START;
-            case 1:
-                //right
-                return Gravity.TOP | Gravity.END;
-            case 2:
-                // center
-                return Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-            default:
-                // right on default
-                return Gravity.TOP | Gravity.END;
-        }
+        return Gravity.TOP | Gravity.END;
     }
 
-
-    /// show dots functions ---------------------------
-
+    /// 인디케이터 표시
     private void showCamDot() {
         if (sharedPreferenceManager.isCameraEnabled()) {
             updateLayoutGravity();
@@ -421,7 +383,6 @@ public class DotService extends AccessibilityService {
         }
     }
 
-
     private void showLocDot() {
         if (sharedPreferenceManager.isLocationEnabled()) {
             updateLayoutGravity();
@@ -431,8 +392,7 @@ public class DotService extends AccessibilityService {
         }
     }
 
-    /// hide dots functions ---------------------------
-
+    /// 인디케이터 숨기기
     private void hideMicDot() {
         downScaleView(dotMic);
         dotMic.setVisibility(View.GONE);
@@ -443,15 +403,12 @@ public class DotService extends AccessibilityService {
         dotCamera.setVisibility(View.GONE);
     }
 
-
     private void hideLocDot() {
         downScaleView(dotLoc);
         dotLoc.setVisibility(View.GONE);
     }
 
-
-    // Dot animations
-
+    // 인디케이터 애니메이션
     public void upScaleView(View view) {
         view.animate().scaleX(1f).scaleY(1f).setDuration(500);
     }
@@ -460,8 +417,7 @@ public class DotService extends AccessibilityService {
         view.animate().scaleX(0f).scaleY(0f).setDuration(500);
     }
 
-
-    // Initialise the dots
+    // 인디케이터 초기화
     private void initDotViews() {
         dotCamera = hoverLayout.findViewById(R.id.dot_camera);
         dotMic = hoverLayout.findViewById(R.id.dot_mic);
@@ -474,7 +430,6 @@ public class DotService extends AccessibilityService {
         }, 300);
 
     }
-
 
     private void createHoverOverlay() {
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -499,7 +454,6 @@ public class DotService extends AccessibilityService {
         windowManager.updateViewLayout(hoverLayout, layoutParams);
     }
 
-
     @Override
     public void onInterrupt() {
         if (Constants.isDebug()) {
@@ -520,9 +474,7 @@ public class DotService extends AccessibilityService {
                 Log.i(TAG, "onAccessibilityEvent:" + new Exception(ignored).getMessage());
             }
         }
-
     }
-
 
     @Override
     public void onDestroy() {
@@ -533,14 +485,11 @@ public class DotService extends AccessibilityService {
         if (notificationManager != null) {
             notificationManager.cancel(3);
         }
-        // we cannot remove accessibility service
+        // 접근성 서비스를 제거할 수 없습니다.
         stopForeground(true);
         super.onDestroy();
-
     }
 
-
-    // Unregistering on destroy
     private void unRegisterCameraCallBack() {
         if (cameraManager != null && cameraCallback != null) {
             cameraManager.unregisterAvailabilityCallback(cameraCallback);

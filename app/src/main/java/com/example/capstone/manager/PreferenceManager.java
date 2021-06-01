@@ -37,7 +37,6 @@ public class PreferenceManager {
         this.prefEditor = sharedPreferences.edit();
     }
 
-
     public boolean isServiceEnabled() {
         return sharedPreferences.getBoolean(PREF_CONSTANTS.SERVICE_KEY, false);
     }
@@ -46,20 +45,17 @@ public class PreferenceManager {
         prefEditor.putBoolean(PREF_CONSTANTS.SERVICE_KEY, set).apply();
     }
 
-
-    // --------- Mic ------------
-
+    // 마이크
     public boolean isMicEnabled() {
         return sharedPreferences.getBoolean(PREF_CONSTANTS.MIC_KEY, true);
     }
 
-    // --------- Camera ------------
-
+    // 카메라
     public boolean isCameraEnabled() {
         return sharedPreferences.getBoolean(PREF_CONSTANTS.CAMERA_KEY, true);
     }
 
-    // --------- Location ------------
+    // 위치정보
     public boolean isLocationEnabled() {
         return sharedPreferences.getBoolean(PREF_CONSTANTS.LOCATION_KEY, false);
     }
@@ -68,11 +64,7 @@ public class PreferenceManager {
         prefEditor.putBoolean(PREF_CONSTANTS.LOCATION_KEY, set).apply();
     }
 
-    // --------- Dot ------------
-    public int getDotPosition() {
-        return sharedPreferences.getInt(PREF_CONSTANTS.PLACEMENT_KEY, 1);
-    }
-
+    // 인디케이터
     public boolean isIconsEnabled() {
         return sharedPreferences.getBoolean(PREF_CONSTANTS.ICON_KEY, true);
     }

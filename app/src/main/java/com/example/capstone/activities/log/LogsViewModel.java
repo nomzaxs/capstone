@@ -30,7 +30,5 @@ public class LogsViewModel extends AndroidViewModel {
     public void clearLogs() {
         logsRepository.clearLogs();
     }
-
-
 }
 

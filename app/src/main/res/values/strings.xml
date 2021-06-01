@@ -1,30 +1,21 @@
 <resources>
     <string name="app_name">capstone</string>
 
-    <string name="service_description">When this service is enabled it lets Dot safe app to display notifications and indicators every time a third-party app or a service uses camera or microphone on any screen.</string>
-    <string name="service_summary">Turn this on to enable</string>
+    <string name="service_description">이 서비스를 사용하도록 설정하면 타사 앱이나 서비스가 카메라나 마이크를 화면에서 사용할 때마다 알림 및 표시 기능을 사용할 수 있습니다.</string>
+    <string name="service_summary">활성화하려면 이 옵션을 켜십시오.</string>
 
-    <string name="close_app_note">Disable the accessibility permission to the app</string>
-    <string name="preferences">Preferences</string>
-
-    <string name="vibrate_description">You will get a short vibration whenever an application or a service uses microphone or camera</string>
-    <string name="dot_alignment_string">Dot Alignment</string>
-    <string name="dot_alignment_description">Align the dots in the way you want and you are comfortable with</string>
+    <string name="close_app_note">앱에 대한 액세스 권한 사용 안 함</string>
 
     <string name="default_version_text">Version - 1.0</string>
-    <string name="clear_dialog_title">Are you sure ?</string>
-    <string name="clear_dialog_description">This will clear all the logs which cannot be recovered back.\nStill want to proceed ?</string>
-    <string name="clear_dialog_yes">Yes, Clear it</string>
-    <string name="clear_dialog_no">No, Not now</string>
+    <string name="clear_dialog_title">정말 삭제하시겠습니까?</string>
+    <string name="clear_dialog_description">모든 로그가 삭제되며 복구할 수 없습니다.\n삭제하시겠습니까?</string>
+    <string name="clear_dialog_yes">예</string>
+    <string name="clear_dialog_no">아니요</string>
 
     <string name="creator_attribution">2021 조선대 캡스톤</string>
 
-    <string name="update_failed_note">Update Failed ! Retrying...</string>
+    <string name="update_failed_note">업데이트 실패! 재시도 중...</string>
 
-    <string name="access_log_title">Access Log</string>
-    <string name="clear_logs">Clear Logs</string>
-    <string name="title_ads">No Interner Adverts</string>
-    <string name="title_activity_customisation">CustomisationActivity</string>
-
-
+    <string name="access_log_title">접근 로그</string>
+    <string name="clear_logs">로그 삭제</string>
 </resources>
