@@ -15,7 +15,6 @@ public class PreferenceManager {
 
     private class PREF_CONSTANTS {
         public static final String SERVICE_KEY = "me.example.capstone.SERVICE";
-        public static final String PLACEMENT_KEY = "me.example.capstone.ALIGNMENT";
         public static final String ICON_KEY = "me.example.capstone.ICON";
 
         public static final String CAMERA_KEY = "me.example.capstone.CAMERA";
