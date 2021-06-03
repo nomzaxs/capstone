@@ -33,6 +33,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogHolder> {
         return new LogHolder(inflatedView);
     }
 
+    // 사용 앱 데이터
     @Override
     public void onBindViewHolder(@NonNull final LogHolder holder, int position) {
         final Logs item = logsList.get(position);
