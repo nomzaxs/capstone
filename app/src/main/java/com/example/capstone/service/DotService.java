@@ -93,7 +93,7 @@ public class DotService extends AccessibilityService {
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
             Notification notification = new Notification.Builder(this, Constants.SERVICE_NOTIFICATION_CHANNEL)
-                    .setContentTitle("capstone")
+                    .setContentTitle("Security Log")
                     .setContentText("앱이 작동 중입니다.")
                     .setSmallIcon(R.drawable.icon)
                     .setContentIntent(pendingIntent)
